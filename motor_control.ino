@@ -57,6 +57,8 @@ void loop() {
         forward();
       else if (results.value == BACKWARD_KEY) // Move backward
         backward();
+      else if (results.value == STOP_KEY) // Halt
+	halt();
     }
   }
   delay(100);
