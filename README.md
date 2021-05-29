@@ -3,11 +3,9 @@
 This repository is for our submission of the IEEE 2021 Spring Project. 
 ![Robot](https://github.com/AnnabellaMacaluso/IEEESpringProject2021/blob/main/misc/robot1.png)
 
-### Background
-
-What is this 
 ### Installation 
+There are two libraries used within our source code. Please install these and add them to the arduino IDE.
 
-Add the IR sensor library they'd have to install 
+[IRremote.h](https://www.arduino.cc/reference/en/libraries/irremote/)
+[NewTone.h](https://bitbucket.org/teckel12/arduino-new-tone/downloads/)
 
-## Language 
