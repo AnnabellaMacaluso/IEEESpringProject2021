@@ -1,10 +1,12 @@
 #include <IRremote.h>
+#include <NewTone.h>
 #define ON_OFF_KEY 0xFF629D
 #define LEFT_KEY 0xFF30CF
 #define RIGHT_KEY 0xFF7A85
 #define FORWARD_KEY 0xFF9867
 #define BACKWARD_KEY 0xFF38C7
 #define STOP_KEY  0xFF18E7
+#define A 0xFF22DD
 
 int motor1pin1 = 2;
 int motor1pin2 = 3;
@@ -12,11 +14,12 @@ int motor1pin2 = 3;
 int motor2pin1 = 4;
 int motor2pin2 = 5;
 const int sensorPin = 6;
+int LED = 13;
+int Buzzer = 9;
 
-IRrecv irrecv(RECV_PIN);  // Initialize IR Library
+IRrecv irrecv(sensorPin);  // Initialize IR Library
 decode_results results;   // Initialize IR Library
 bool isOn = false;
-unsigned long int = 0;
 
 void setup() {
   // put your setup code here, to run once:
@@ -58,7 +61,9 @@ void loop() {
       else if (results.value == BACKWARD_KEY) // Move backward
         backward();
       else if (results.value == STOP_KEY) // Halt
-	halt();
+	      halt();
+      else if (results.value == A) // Honk
+        honk();
     }
   }
   delay(100);
@@ -68,11 +73,13 @@ void loop() {
 // Turn Off bot
 void powerOff() {
   isOn = false;
+  digitalWrite(LED, LOW);
   halt();
 }
 // Turn on bot
 void powerOn() {
   isOn = true;
+  digitalWrite(LED, HIGH);
   halt(); // can we do a dance
 }
 
@@ -100,7 +107,7 @@ void left() {
 
   digitalWrite(motor2pin1, LOW);
   digitalWrite(motor2pin2, LOW);
-  delay(1000)
+  delay(1000);
 }
 
 void right() {
@@ -109,7 +116,7 @@ void right() {
 
   digitalWrite(motor2pin1, HIGH);
   digitalWrite(motor2pin2, LOW);
-  delay(1000)
+  delay(1000);
 }
 
 void backward() {
@@ -119,4 +126,10 @@ void backward() {
   digitalWrite(motor2pin1, LOW);
   digitalWrite(motor2pin2, HIGH);
   delay(1000);
+}
+
+void honk() {
+  NewTone(Buzzer, 1000);
+  delay(500);
+  noNewTone(Buzzer);
 }
